@@ -1,0 +1,36 @@
+h1, h2, h3, h4, p {
+   margin: 0;
+   padding: 0;
+}
+
+.wrapper{
+   width: 250px;
+   height: 350px;
+   margin: 8px;
+   border: 1px solid white;
+   background-color: rgb(46, 46, 46);
+   padding: 8px;
+   font-size: 16px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   /* overflow: auto; */
+}
+
+.btn{
+   display: inline-block;
+   border-radius: 8px;
+   padding: 4px 8px;
+}
+.btn-registr{
+   background: rgba(216, 71, 221, 0.726);
+   transition: 0.5s;
+}
+.btn-registr:hover{
+   background-color: rgb(240, 18, 248);;
+}
+.box-text{
+   height: 280px;
+   overflow: auto;
+   padding: 4px;
+}

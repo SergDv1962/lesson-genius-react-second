@@ -1,0 +1,11 @@
+h1, h2, h3, h4{
+  margin: 0;
+}
+
+.main-box-hw {
+  background-color: #353535;
+  min-height: 100vh;
+  font-size: calc(14px + 2vmin);
+  color: white;
+}
+

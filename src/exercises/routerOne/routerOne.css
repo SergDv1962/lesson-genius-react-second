@@ -1,0 +1,12 @@
+.header-box {
+   display: flex;
+   justify-content: space-around;
+}
+
+.active {
+   color: green;
+}
+
+.active-pink {
+   color: rgb(255, 77, 106)
+}

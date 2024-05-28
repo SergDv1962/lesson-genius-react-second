@@ -1,0 +1,80 @@
+{
+  "contacts": [
+    {
+      "id": "1",
+      "name": "Harry",
+      "lastName": "Potter",
+      "about": "this is information about user"
+    },
+    {
+      "id": "2",
+      "name": "Luke",
+      "lastName": "Skywalker",
+      "about": "this is information about user"
+    },
+    {
+      "id": "e204",
+      "name": "Bob",
+      "lastName": "Smit",
+      "about": "this is information about user"
+    }
+  ],
+  "todos": [
+    {
+      "title": "First todo",
+      "description": "Text first todo",
+      "checked": "false",
+      "creationDate": "2/5/2024 - 19:48",
+      "id": "90d3"
+    },
+    {
+      "title": "Second todo",
+      "description": "Text second todo",
+      "checked": "false",
+      "creationDate": "2/5/2024 - 22:49",
+      "id": "2d2d"
+    },
+    {
+      "title": "third todo",
+      "description": "text todo third",
+      "checked": "false",
+      "creationDate": "27/5/2024 - 19:7",
+      "id": "d3f6"
+    }
+  ],
+  "todos2": [
+    {
+      "title": "my task 1",
+      "description": "description for todo 1",
+      "checked": "true",
+      "creationDate": "2024/4/3 - 10:43",
+      "id": "7aef"
+    },
+    {
+      "title": "my task 2",
+      "description": "description for todo 2",
+      "checked": "false",
+      "creationDate": "2024/4/3 - 10:43",
+      "id": "9d22"
+    },
+    {
+      "title": "forth task new",
+      "description": "test for date",
+      "checked": "true",
+      "creationDate": "2024/4/4 - 10:34",
+      "id": "af8b"
+    }
+  ],
+  "auth": [
+    {
+      "id": "1",
+      "usersName": "Bob",
+      "email": "wwwBob@qwer.ua"
+    },
+    {
+      "id": "2",
+      "usersName": "Tom",
+      "email": "wwwTom@qwer.ua"
+    }
+  ]
+}

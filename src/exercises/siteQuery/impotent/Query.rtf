@@ -1,0 +1,68 @@
+const {
+  data,                         --- ур.44 Genius
+  dataUpdatedAt,
+  error,                         --- ур.44 Genius
+  errorUpdateCount,
+  errorUpdatedAt,
+  failureCount,
+  failureReason,
+  fetchStatus,
+  isError,                       --- ур.44 Genius
+  isFetched,
+  isFetchedAfterMount,
+  isFetching,                       --- повертає- сторінка оновлюється або ні (true/false)
+  isInitialLoading,
+  isLoading,                    --- ур.44 Genius
+  isLoadingError,
+  isPaused,
+  isPlaceholderData,
+  isPreviousData,
+  isRefetchError,
+  isRefetching,
+  isStale,
+  isSuccess,
+  refetch,              --- ур.44 Genius -- ця властивість використана для нового запиту після додавання щоб оновити відображаємі дані, у network ,fxbvj ghb[jlbnm yjdbq pfghjc]
+  remove,
+  status,
+} = useQuery({
+  queryKey,
+  queryFn,
+  cacheTime,             ---- cacheTime: 6000 - скільки часу в мс будуть зберігатися дані в кеші, після цього "прибиральник" прибере зайвий мусор з кешу. Якщо 0 то дані в кеші будуть відразу прибиратися, а якщо infinity то дані будуть постійно зберігатись 
+  enabled,             ---- параметр пустої строки. (приклад: enabled: !!film) приймає булеве значення, тому і переводимо змінну  film у значення true/false - вона є або її нема(значить строка пуста) (ур14)
+  networkMode,
+  initialData,           ---- ур18,20,21 покращення проізводительності -ініціалізація данних- приклад: initialData: {name: "initial name"},
+  initialDataUpdatedAt,
+  keepPreviousData,
+  meta,
+  notifyOnChangeProps,
+  onError,               ------ур22 (error) => {} на вхід приймає помилку при відмові
+  onSettled,             ------ур22 (data, error) => {} приймає і дані і помилку у будь якому разі 
+  onSuccess,              ------ур22 (data) => {}  на вхід приймає дані при положительної відповіді. У фунцію можемо покласти дії котрі ми хочемо виконувати при положит.відповіді
+  placeholderData,
+  queryKeyHashFn,
+  refetchInterval,
+  refetchIntervalInBackground,
+  refetchOnMount,
+  refetchOnReconnect,
+  refetchOnWindowFocus,        --- встановлюємо(true/false) -вмикаєм\вимикаєм оновлення сторинки коли змінююмо фокус між сторінкою і іншими відкритими вікнами
+  retry,                    ---- скільки робить запросів при помилці (по замовчуванню встановлено три) (ур.16)
+  retryOnMount,
+  retryDelay,        --- затримка запросів по замовчуваню встановлено формулу -\\-- retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),  --// --L16 запроси робляться з затримкою збільшуючить з кожним разом (не рекомендують використовувати)
+  select,
+  staleTime,                  ---staleTime: 6000 -- втановлюємо термін який час у мс буде вважитись що дані свіжі і оновлюватись сторінка не буде даже якщо ми змінююмо фокус, як що встановити 0 - наши дані завжди застарілі, а якщо infinity - то завжди свіжі і тоді оновлювати їх потрібно вручну
+  structuralSharing,
+  suspense,
+  useErrorBoundary,
+})
+
+queryClient  має методи:
+.getQueryData
+.setQueryData
+.invalidateQueries(queryKey:[]) Ур.24,25,26,27 -у цей метод можемо передати ключ по котрому хочемо інвалідувати(оновити) дані. Ур.24 Таким чином ми за допомогою цієї команди(можлива кнопка оновлюємо дані в кеші). Теж саме робиться при оновлені даних коли ми змінююмо фокус
+      як що додати прапор(filters) refetchActive: false то це команда дані застаріли дивись ур.25
+      як що refetchActive: true то це команда дані оновити у неактивному стані(сторінка закрита) дивись ур.26
+      ур27. в залежності від ключа можно інвалідувати всі дані(фільми)
+
+.prefetchQuery ур.28,29 використовується для подгрузки даних у фоновому режимі
+               ур.30 використання прапора staleTime для відтермінування перезагрузки даних
+

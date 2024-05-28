@@ -1,0 +1,29 @@
+.main-container {
+   width: 240px;
+   height: 350px;
+   border: 2px solid white;
+   padding: 4px;
+   background-color: rgb(46, 46, 46);
+   overflow: auto;
+}
+
+h3, h4, p {
+   padding: 0;
+   margin: 0;
+}
+
+.item-box {
+   display: flex;
+   flex-direction: column;
+   align-items: start;
+   border: 1px solid yellowgreen;
+   padding: 2px;
+   background-color: rgb(69, 69, 69);
+   margin-top: 4px;
+}
+
+.item-box-btns {
+   display: flex;
+   width: 100%;
+   justify-content: space-around;
+}

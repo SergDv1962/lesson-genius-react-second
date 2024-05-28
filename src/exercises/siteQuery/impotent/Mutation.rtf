@@ -1,0 +1,34 @@
+const {
+  data,
+  error,
+  isError,
+  isIdle,
+  isLoading,
+  isPaused,
+  isSuccess,
+  failureCount,
+  failureReason,
+  mutate,
+  mutateAsync,
+  reset,
+  status,
+} = useMutation({
+  mutationFn,
+  cacheTime,
+  mutationKey,
+  networkMode,
+  onError,
+  onMutate,
+  onSettled,
+  onSuccess,
+  retry,
+  retryDelay,
+  useErrorBoundary,
+  meta,
+})
+
+mutate(variables, {
+  onError,
+  onSettled,
+  onSuccess,
+})

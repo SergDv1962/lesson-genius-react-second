@@ -1,0 +1,9 @@
+.box-modal{
+   background-color: #696868;
+   padding: 4px;
+}
+.box-modal-input{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}

@@ -1,0 +1,56 @@
+.boxApp {
+   border: 1px solid yellow;
+}
+.boxList{
+   height: 220px;
+   overflow: auto;
+}
+.boxItem{
+   border: 2px solid rgb(115, 115, 214);
+   padding: 4px;
+   margin: 2px;
+   background-color: rgb(46, 46, 46);
+   display: flex;
+   flex-direction: row;
+   align-items: start;
+   gap: 4px;
+   overflow: auto;
+}
+
+.boxItem-block{
+   display: flex;
+   flex-direction: column;
+   align-items: start;
+}
+.box-modal{
+   margin-top: 12px;
+}
+.fetchingInfo{
+   font-weight: 600;
+   color: red;
+}
+.textColorGreen{
+   color: greenyellow;
+}
+.btn-Add {
+   background-color: blue;
+   color: rgb(0, 255, 0);
+   font-weight: 600;
+   margin: 4px 0;
+}
+.btn-AddSave {
+   margin: 20px 0;
+}
+.btn-delete {
+   background-color: rgb(133, 4, 4);
+   color: white;
+   font-weight: 600;
+   margin: 4px 0;
+   margin-right: 12px;
+}
+.btn-edit {
+   background-color: rgb(19, 133, 4);
+   color: white;
+   font-weight: 600;
+   margin: 4px 0;
+}

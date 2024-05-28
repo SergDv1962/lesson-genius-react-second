@@ -1,0 +1,12 @@
+.block-tasks{
+   border: 1px solid yellow;
+   max-height: 370px;
+   overflow-y: auto;
+}
+
+.box-todo{
+   background-color: #323872;
+   margin-top: 8px;
+   text-align: left;
+   padding: 4px;
+ }
