@@ -16,10 +16,6 @@ const AppTodo = ({setErPage}) => {
   useEffect(() => {
     dispatch(fetchTodos());
   }, [dispatch])
-  
-  const handleAddTodo = () => {
-    dispatch(fetchTodos());
-  };
 
   return (
     <>
@@ -39,7 +35,6 @@ const AppTodo = ({setErPage}) => {
           <Link
             to={"/apptodo/addtodo"}
             className={"btn btn-Add"}
-            onClick={handleAddTodo}
           >
             Add new Todo
           </Link>

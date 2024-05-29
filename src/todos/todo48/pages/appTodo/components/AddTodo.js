@@ -1,12 +1,14 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+
 import ModalWindowTodo from "./ModalWindowTodo";
 import { useInput } from "./customs/useInput";
 import { Link } from "react-router-dom";
-import { addTodo } from "../api/Api";
-import { useDate } from "./customs/useDate";
+import { addNewTodos } from "../../../redux/features/todosSlice";
 
 const AddTodo = () => {
-  const client = useQueryClient();
+  const { loading: isLoading } = useSelector(state => state.todos)
+  const dispatch = useDispatch();
+
   const {
     input: title,
     setInput: setTitle,
@@ -19,29 +21,10 @@ const AddTodo = () => {
     handleChangeInput: handleChangeInfo,
   } = useInput();
 
-  const date = useDate();
-
-  const payload = {
-    title: title,
-    description: info,
-    checked: "false",
-    creationDate: date,
-  };
-
-  const { mutateAsync, isLoading } = useMutation(
-    ["todos"],
-    (payload) => addTodo(payload),
-    {
-      onSuccess: () => {
-        client.invalidateQueries(['todos'])
-        setTitle('');
-        setInfo('');
-      },
-    }
-  );
-
   const handleAddNewTodo = () => {
-    mutateAsync(payload);
+    dispatch(addNewTodos({title, info}));
+    setTitle('');
+    setInfo('');
   };
 
   return (

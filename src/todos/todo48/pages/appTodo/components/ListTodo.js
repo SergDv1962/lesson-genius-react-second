@@ -1,23 +1,17 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import Checkbox from "./Chechbox";
-import { useMutation, useQueryClient } from "react-query";
-import { deleteTodo } from "../api/Api";
-import { useSelector } from "react-redux";
+import { deleteTodos, fetchTodos } from "../../../redux/features/todosSlice";
 
 const ListTodo = () => {
   const todos = useSelector(state => state.todos.todos);
-  console.log(todos)
-
-   const client = useQueryClient();
-  const { mutateAsync, isLoading } = useMutation(
-   (id) => deleteTodo(id),
-   {onSuccess: ()=>{
-      client.invalidateQueries(['todos']);
-    }}
-   );
+  const { loading: isLoading} = useSelector(state => state.todos);
+  const dispatch = useDispatch();
 
   const handleDeleteTodo = (id) => {
-    mutateAsync(id);
+    dispatch(deleteTodos(id));
+    dispatch(fetchTodos());
   };
   return (
     <div className="boxList">

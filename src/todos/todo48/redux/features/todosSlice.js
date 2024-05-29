@@ -1,15 +1,36 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getTodos } from "../../pages/appTodo/api/Api.js";
+import { deleteTodo, getTodos } from "../../pages/appTodo/api/Api.js";
+import axios from "axios";
+import { useDate } from "../../pages/appTodo/components/customs/useDate.js";
 
 export const fetchTodos = createAsyncThunk(
    'todos/fetchTodos',
    getTodos
 );
 
-// export const addNewUser = createAsyncThunk(
-//   'users/addNewUser',
-//   addUser
-// )
+export const deleteTodos = createAsyncThunk(
+   'todos/deleteTodos',
+   deleteTodo
+);
+
+export const addNewTodos = createAsyncThunk(
+  'todos/addNewTodos',
+  async function ({title, info}, {rejectWithValue, dispatch}) {
+   try {
+      const payload = {
+         title: title,
+         description: info,
+         checked: "false",
+         creationDate: useDate(),
+      };
+      const response = await axios.post('http://localhost:3030/todos', payload);
+      const data = response.data;
+      dispatch(addTodoNew(data))
+   } catch (error) {
+      return rejectWithValue(error.message)
+   }
+  }
+)
 
 const setError = (state, action) => {
    state.status = false;
@@ -23,7 +44,11 @@ export const todosSlice = createSlice({
       status: false,
       error: null,
    },
-   reducers: {},
+   reducers: {
+      addTodoNew: (state, action) => {
+         state.todos.push(action.payload)
+      }
+   },
    extraReducers: (builder) => {
     builder.addCase(fetchTodos.pending, (state) => {
       state.status = true;
@@ -33,9 +58,12 @@ export const todosSlice = createSlice({
       state.todos = action.payload;
     });
     builder.addCase(fetchTodos.rejected, setError);
-   //  builder.addCase(addNewUser.rejected, setError);
+    builder.addCase(deleteTodos.rejected, setError);
+    builder.addCase(addNewTodos.rejected, setError);
   },
 
 });
+
+const { addTodoNew } = todosSlice.actions;
 
 export default todosSlice.reducer;
