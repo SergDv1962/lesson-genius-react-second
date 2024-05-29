@@ -2,8 +2,12 @@ import { Link } from "react-router-dom";
 import Checkbox from "./Chechbox";
 import { useMutation, useQueryClient } from "react-query";
 import { deleteTodo } from "../api/Api";
+import { useSelector } from "react-redux";
 
-const ListTodo = ({ todos }) => {
+const ListTodo = () => {
+  const todos = useSelector(state => state.todos.todos);
+  console.log(todos)
+
    const client = useQueryClient();
   const { mutateAsync, isLoading } = useMutation(
    (id) => deleteTodo(id),

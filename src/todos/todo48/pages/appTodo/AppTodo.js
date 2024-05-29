@@ -1,37 +1,29 @@
-import { useQuery } from "react-query";
-import { getTodos } from "./api/Api";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import "./AppTodo.css";
+
 import ListTodo from "./components/ListTodo";
 import Loader from "../../../../loaders/Loader";
 import { Link, Navigate } from "react-router-dom";
 
-import "./AppTodo.css";
+import { fetchTodos } from "../../redux/features/todosSlice";
 
 const AppTodo = ({setErPage}) => {
+  const dispatch = useDispatch();
+  const { status: isLoading, isFetching, error} = useSelector(state => state.todos)
+ 
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch])
   
-  const {
-    data: todos,
-    isLoading,
-    isError,
-    isFetching,
-    refetch,
-  } = useQuery(["todos"], () => getTodos("todos"), {
-    cacheTime: 0,
-    onError: (error) => {
-      const info = 'Error message: ' + error.message + ', Error response: ' + error.response.data
-      setErPage(info);
-    },
-  });
-
-  
-
-
   const handleAddTodo = () => {
-    refetch();
+    dispatch(fetchTodos());
   };
 
   return (
     <>
-      {isError ? (
+      {!!error ? (
         <Navigate to={'/error-page'}/>
       ) : isLoading ? (
         <Loader />
@@ -51,7 +43,7 @@ const AppTodo = ({setErPage}) => {
           >
             Add new Todo
           </Link>
-          <ListTodo todos={todos} setErPage={setErPage}/>
+          <ListTodo setErPage={setErPage}/>
         </div>
       )}
     </>
