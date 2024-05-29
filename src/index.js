@@ -5,7 +5,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import {ReactQueryDevtools} from 'react-query/devtools';
 
 import { Provider } from 'react-redux'
-import { store } from './lessons/num48redux/store/store';
+// import { store } from './lessons/num48redux/store/store';
+import { store } from './todos/todo48/redux/store/store.js';
 
 import './index.css';
 

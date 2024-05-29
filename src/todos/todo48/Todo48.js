@@ -1,15 +1,15 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useQuery } from "react-query";
-import { Suspense, lazy, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import Loader from "../../loaders/Loader";
 import Layout from "./layout/Layout";
 import PageError from "./pages/page-error/PageError";
 import Login from "./pages/login/Login";
 import PrivateRoutes from "./pages/appTodo/components/PrivateRoutes";
-import { getAllUsers } from "./pages/appTodo/api/Api";
 import Registration from "./registration/Registration";
 import { AuthContext } from "../../context/AuthContent";
 import "./Todo48.css";
+import { useDispatch } from "react-redux";
+import { fetchUsers } from "./redux/features/usersSlice";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const About = lazy(() => import("./pages/about/About"));
@@ -19,16 +19,15 @@ const EditTodo = lazy(() => import("./pages/appTodo/components/EditTodo"));
 const NotFoundPage = lazy(() => import("./pages/notfoundpage/NotFoundPage"));
 
 const Todo48 = () => {
+  const dispatch = useDispatch();
+
   const [erPage, setErPage] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(
    !!localStorage.getItem('email'));
 
-  const { data: users } = useQuery({
-    queryKey: ["userList"],
-    queryFn: getAllUsers,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
-  });
+  useEffect(() => {
+    dispatch(fetchUsers())
+  }, [dispatch])
 
   return (
     <div className="wrapper">
@@ -38,7 +37,7 @@ const Todo48 = () => {
             <Route path="/" element={<Layout />}>
               <Route
                 path="/login"
-                element={<Login users={users} />}
+                element={<Login/>}
               />
               <Route index element={<Home />} />
               <Route

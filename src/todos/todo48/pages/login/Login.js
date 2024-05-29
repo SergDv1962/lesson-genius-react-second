@@ -2,8 +2,10 @@ import { Button, Form, Input } from "antd";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../context/AuthContent";
+import { useSelector } from "react-redux";
 
-const Login = ({ users }) => {
+const Login = () => {
+   const users = useSelector(state => state.users.users);
    const { setIsAuthenticated } = useContext(AuthContext)
    const [loginUser, setLoginUser] = useState({});
    const navigate = useNavigate();
