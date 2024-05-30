@@ -1,13 +1,18 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import ModalWindowTodo from "./ModalWindowTodo";
 import { useDate } from "./customs/useDate";
-import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useInput } from "./customs/useInput";
-import { editTodo, getTodos } from "../api/Api";
+import { editTodos } from "../../../redux/features/todosSlice";
 
 const EditTodo = () => {
   const { editTodoId } = useParams();
-  const client = useQueryClient();
+  const dispatch = useDispatch();
+  const  todos  = useSelector(state => state.todos.todos)
+  const todo = todos.find(el => el.id === editTodoId)
+
   const {
     input: title,
     setInput: setTitle,
@@ -20,41 +25,20 @@ const EditTodo = () => {
     handleChangeInput: handleChangeInfo,
   } = useInput();
 
-  const date = useDate();
-
-  const { data: editTask, refetch } = useQuery(
-    ["todos", editTodoId],
-    () => getTodos(`todos/${editTodoId}`),
-    {
-      initialData: () =>
-        client.getQueryData(["todos"])
-         .find((el) => el.id === editTodoId),
-      onSuccess: () => {
-        setTitle(editTask.title);
-        setInfo(editTask.description);
-      },
-    }
-  );
+  useEffect(()=>{
+    setTitle(todo.title);
+    setInfo(todo.description)
+  },[todo])
 
   const payload = {
     title: title,
     description: info,
-    checked: editTask.checked,
-    creationDate: date,
+    checked: todo.checked,
+    creationDate: useDate(),
   };
 
-  const { mutateAsync } = useMutation(
-    () => editTodo(editTodoId, payload),
-    {
-      onSuccess: () => {
-        client.invalidateQueries(["todos"]);
-        refetch();
-      },
-    }
-  );
-
   const handleSaveEditTodo = () => {
-    mutateAsync();
+    dispatch(editTodos({editTodoId, payload}))
   };
 
   return (

@@ -32,6 +32,18 @@ export const addNewTodos = createAsyncThunk(
   }
 )
 
+export const editTodos = createAsyncThunk(
+   'todos/editTodos',
+   async function ({editTodoId, payload}, {rejectWithValue}) {
+      try {
+         const response = await axios.put(`http://localhost:3030/todos/${editTodoId}`, payload);
+         return response.data
+      } catch (error) {
+         return rejectWithValue(error.message)
+      } 
+   }
+)
+
 const setError = (state, action) => {
    state.status = false;
    state.error = action.error.message;
@@ -47,7 +59,7 @@ export const todosSlice = createSlice({
    reducers: {
       addTodoNew: (state, action) => {
          state.todos.push(action.payload)
-      }
+      },
    },
    extraReducers: (builder) => {
     builder.addCase(fetchTodos.pending, (state) => {
@@ -60,6 +72,7 @@ export const todosSlice = createSlice({
     builder.addCase(fetchTodos.rejected, setError);
     builder.addCase(deleteTodos.rejected, setError);
     builder.addCase(addNewTodos.rejected, setError);
+    builder.addCase(editTodos.rejected, setError);
   },
 
 });

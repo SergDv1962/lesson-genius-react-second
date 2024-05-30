@@ -7,6 +7,11 @@ export async function getTodos () {
    return response.data
 }
 
+export async function getTodo (url) {
+    const response = await axios.get(url);
+   return response.data
+}
+
 // export async function addTodo (payload) {
 //     const response = await axios.post('todos', payload);
 //     return response.data
