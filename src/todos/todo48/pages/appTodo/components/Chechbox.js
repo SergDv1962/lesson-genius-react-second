@@ -1,31 +1,25 @@
 import { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
-import { editTodo } from "../api/Api";
+import { useDispatch } from "react-redux";
+import { fetchTodos, toggleCheckbox } from "../../../redux/features/todosSlice";
 
 const Checkbox = ({ item }) => {
-  const client = useQueryClient();
+  const dispatch = useDispatch();
   const [checked, setChecked] = useState(JSON.parse(item.checked));
-
-  const { mutateAsync } = useMutation( (payload) =>
-    editTodo(item.id, payload),
-    {
-      onMutate: () => {
-        client.invalidateQueries(["todos"]);
-      },
-    }
-  );
+  
+  const id = item.id;
 
   const handleCheckbox = (e) => {
     e.preventDefault();
     const checked = e.target.checked;
-    setChecked(checked);
+    setChecked(JSON.stringify(checked));
     const payload = {
       title: item.title,
       description: item.description,
       checked: JSON.stringify(checked),
       creationDate: item.creationDate,
     };
-    mutateAsync(payload);
+    dispatch(toggleCheckbox({id, payload}))
+    dispatch(fetchTodos())
   };
 
   return (

@@ -30,7 +30,7 @@ export const addNewTodos = createAsyncThunk(
       return rejectWithValue(error.message)
    }
   }
-)
+);
 
 export const editTodos = createAsyncThunk(
    'todos/editTodos',
@@ -41,6 +41,19 @@ export const editTodos = createAsyncThunk(
       } catch (error) {
          return rejectWithValue(error.message)
       } 
+   }
+);
+
+export const toggleCheckbox = createAsyncThunk(
+   'todos/toggleCheckbox',
+   async function ({id, payload}, {rejectWithValue}) {
+      try {
+         console.log(id, payload)
+         const response = await axios.put(`http://localhost:3030/todos/${id}`, payload);
+         return response.data
+      } catch (error) {
+         rejectWithValue(error.message)
+      }
    }
 )
 
